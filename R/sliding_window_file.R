@@ -36,17 +36,32 @@ euclidean_norm <- function(data_file_path, dimensions) {
 threshold_filter <- function(window_data, threshold){
   result <- window_data[[1]]
   comp_value <- window_data[[1]] #the reference value to compare with the threshold value is the first value of the window
-  difference <- 0
-  max_difference <- 0
-  for(i in 1:length(window_data)){
-    difference <- abs(comp_value - window_data[[i]])
-    if(difference > max_difference){
-      max_difference <- difference
-      if(max_difference >threshold){
-        result <- window_data[[i]]
-      }
-    }
+
+  #--------------------
+  # AVG METHOD
+  window_mean <- mean(window_data)
+  difference <- abs(window_mean - comp_value)
+  if(difference >= threshold){
+    result <- window_mean
   }
+  #--------------------
+
+  #--------------------
+  # MAX DIFFERENCE METHOD
+  # difference <- 0
+  # max_difference <- 0
+  # for(i in 1:length(window_data)){
+  #   difference <- abs(comp_value - window_data[[i]])
+  #   if(difference > max_difference){
+  #     max_difference <- difference
+  #     if(max_difference >threshold){
+  #       result <- window_data[[i]]
+  #     }
+  #   }
+  # }
+  #--------------------
+
+
   return(result)
 }
 
@@ -58,13 +73,29 @@ threshold_filter <- function(window_data, threshold){
 
 binary_filter <- function(window_data, dummy_variable=0){
   comp_value <- window_data[[1]]
-  end_window_value <- window_data[[length(window_data)]] # Change to average of window_data if necessary
-  if (end_window_value - comp_value >= 0){
-    value = 1
+
+  #-------------------
+  # AVG METHOD
+  window_mean <- mean(window_data)
+  difference <- window_mean - comp_value
+  if(difference >= 0){
+    value <- 1
   }
   else{
-    value = -1
+    value <- -1
   }
+  #-----------------
+
+  #---------------------
+  # DIFFERENCE BTW END AND START OF WINDOW METHOD
+  # end_window_value <- window_data[[length(window_data)]]
+  # if (end_window_value - comp_value >= 0){
+  #   value <- 1
+  # }
+  # else{
+  #   value <- -1
+  # }
+  #-------------------
 
   return( value )
 }
