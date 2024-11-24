@@ -108,5 +108,4 @@ apply_sliding_window <- function(window_function, data_frame, window_size, thres
     }
   }
 
-
  }
