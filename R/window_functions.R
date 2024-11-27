@@ -41,7 +41,7 @@ threshold_filter <- function(window_data, threshold){
 #' @title Binary filter
 #' @param window_data The data to be parsed through the function
 #' @returns Iterates through a window to returning a +1/-1 depending on whether the value increases or decreases from the beginning to the end of the window
-#'
+#' @export
 #'
 
 binary_filter <- function(window_data, dummy_variable=0){
